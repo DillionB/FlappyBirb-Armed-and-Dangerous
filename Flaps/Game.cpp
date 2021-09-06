@@ -16,11 +16,11 @@ int main()
     // initiate window and set background texture
     InitWindow(screenWidth,screenHeight, "mywindow");
     Texture2D Back = LoadTexture("textures/flapBack.png");
-    Texture2D ground1 = LoadTexture("textures/ground.png");
-    Texture2D GameOver = LoadTexture("textures/over.png");
+    Texture2D ground1 = LoadTexture("textures/ground.png"); // ground texture
+    Texture2D GameOver = LoadTexture("textures/over.png");// game over screen
     Texture2D Medal = LoadTexture("");;
-    float Gx = 0;
-    bool Start{};
+    float Gx = 0; // horizontal ground offset overtime
+    bool Start{}; // start game variable
     bool gOver {};// gameover
       
     // initialize player pawn variables
@@ -34,19 +34,11 @@ int main()
 
     // initialize player weapon variables
     Texture2D Gun = LoadTexture("textures/flapGun2.png");
-    Rectangle GunRec;
-        GunRec.width = Gun.width;
-         GunRec.height = Gun.height;
-        GunRec.x = 0;
-        GunRec.y = 0;
-    
+    Rectangle GunRec{0,0, Gun.width, Gun.height };
+        
     // initialize Weapon Crosshair variables
     Texture2D Cross = LoadTexture("textures/crosshair.png");
-    Rectangle CrossRec;
-        CrossRec.width = Cross.width;
-        CrossRec.height = Cross.height;
-        CrossRec.x = 0;
-        CrossRec.y = 0;
+    Rectangle CrossRec {0, 0, Cross.width, Cross.height};
 
     //set bullet variables 
     float cX;
@@ -58,12 +50,8 @@ int main()
 
     // set Enemy variables
     Texture2D fly = LoadTexture("textures/redFlap.png");
-    Rectangle FlyRec; 
-    Vector2 flyV{1000.0f, 0.0f};  
-        FlyRec.width = 52;
-        FlyRec.height = 54;
-        FlyRec.x=0;
-        FlyRec.y = 0;
+    Rectangle FlyRec{0, 0,  FlyRec.width = 52, FlyRec.height = 54 }; 
+    Vector2 flyV{1000.0f, 0.0f};      
     bool dead{};
     bool up{};
 
@@ -71,38 +59,20 @@ int main()
     //set Pipe Bottom variables
     Texture2D pipe = LoadTexture("textures/pipe.png");
     Texture2D pipeTop = LoadTexture("textures/pipe2.png");
-    Rectangle pipeRec; 
-    Vector2 pipeV;
-    pipeRec.width = pipe.width;
-    pipeRec.height = pipe.height;
-    pipeRec.x=0;
-    pipeRec.y = 0;
-    pipeV.x=1400;
-    pipeV.y = 400;
+    Rectangle pipeRec{0, 0,pipe.width,pipe.height} ; 
+    Vector2 pipeV{1400,400};
     Vector2 pipeTV{pipeV.x, pipeV.y -600};  
 
     //set Pipe Bottom 2 variables
     Texture2D pipe2 = LoadTexture("textures/pipe.png");
-    Rectangle pipe2Rec;   
-    Vector2 pipe2V;
-    pipe2Rec.width = pipe.width;
-    pipe2Rec.height = pipe.height;
-    pipe2Rec.x=0;
-    pipe2Rec.y = 0;
-    pipe2V.x=1000;
-    pipe2V.y = 400;
+    Rectangle pipe2Rec{0,0, pipe.width, pipe.height};   
+    Vector2 pipe2V{1000,400};
     Vector2 pipe2TV{pipe2V.x, pipe2V.y -600}; 
     
     //set Pipe Bottom 3 variables
     Texture2D pipe3 = LoadTexture("textures/pipe.png");
-    Rectangle pipe3Rec;   
-    Vector2 pipe3V;
-    pipe3Rec.width = pipe.width;
-    pipe3Rec.height = pipe.height;
-    pipe3Rec.x=0;
-    pipe3Rec.y = 0;
-    pipe3V.x=1000;
-    pipe3V.y = 400;
+    Rectangle pipe3Rec{0,0,pipe.width,pipe.height};   
+    Vector2 pipe3V{1000, 400};
     Vector2 pipe3TV{pipe3V.x, pipe3V.y -600}; 
     
 
@@ -147,18 +117,9 @@ int main()
         
         // draw ready screen
         Texture2D Ready = LoadTexture("textures/start.png");
-        
-        
-        
-        
+        // ready screen posistion 
         float Rx = 300;
         float Ry= 100;
-
-        
-       
-
-        
-        
 
         // set menu card Gameover/start game
         if (gOver)
@@ -167,12 +128,12 @@ int main()
             
             if (playerScore>highScore){highScore=playerScore;GameOver=LoadTexture("textures.newOver.png");}
             else   GameOver = LoadTexture("textures/over.png");
-            if (playerScore > 1) {Medal=LoadTexture("textures/bronze.png");}
-            if (playerScore > 2) {Medal=LoadTexture("textures/silver.png");}
-            if (playerScore > 3) {Medal=LoadTexture("textures/gold.png");}
+            if (playerScore > 1) {Medal=LoadTexture("textures/bronze.png");} // bronce medal end screen
+            if (playerScore > 2) {Medal=LoadTexture("textures/silver.png");} // bronce medal end screen
+            if (playerScore > 3) {Medal=LoadTexture("textures/gold.png");} // gold medal end screen
                 SaveStorageValue(STORAGE_POSITION_HISCORE, highScore);
-                DrawTexture(GameOver, Rx, Ry, WHITE);
-                DrawTexture(Medal, Rx, Ry, WHITE); 
+                DrawTexture(GameOver, Rx, Ry, WHITE);  //draw gameover screen 
+                DrawTexture(Medal, Rx, Ry, WHITE);  // draw medal
                 std::string Score = std::to_string(playerScore); 
                 DrawText(Score.c_str(), 580.f,230.f,40,WHITE);
                 std::string hScore = std::to_string(highScore); 
